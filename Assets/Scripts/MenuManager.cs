@@ -18,13 +18,13 @@ public class MenuManager : MonoBehaviour
     private int currResolutionIndex = 0; //Текущее разрешение
     public Canvas MainMenu; 
     public Canvas SettingsMenu;
-    // Start is called before the first frame update
+
     void Start()
     {
         SettingsMenu.enabled = isOpened;
     }
 
-    // Update is called once per frame
+
     void Update()
     {   
         if (isOpened && Input.GetKey(KeyCode.Escape))
@@ -34,10 +34,20 @@ public class MenuManager : MonoBehaviour
             
     }
 
-    public void ShowHideMenu()
+    public void NewGame()//Этот код изменится потом, сейчас он для проверки
+    {
+        SceneManager.LoadScene("Inventory");
+    }
+
+    public void LoadGame()//Этот код изменится потом
+    {
+
+    }
+
+    public void ShowHideMenu() //Включение или отключение Canvas.
     {
         isOpened = !isOpened;
-        SettingsMenu.enabled = isOpened; //Включение или отключение Canvas.
+        SettingsMenu.enabled = isOpened; 
         MainMenu.enabled = !isOpened;
     }
 
