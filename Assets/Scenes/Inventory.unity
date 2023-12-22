@@ -861,6 +861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   inventorySlots: {fileID: 0}
+  Inspection: {fileID: 0}
 --- !u!1001 &1127784216
 PrefabInstance:
   m_ObjectHideFlags: 0

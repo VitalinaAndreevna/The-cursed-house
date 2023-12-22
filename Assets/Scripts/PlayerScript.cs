@@ -1,6 +1,6 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 
 public class PlayerScript : MonoBehaviour
@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour
     SpriteRenderer rend;
 
     Collider2D doorCollider;
+    Collider2D itemCollider;
 
     // Start is called before the first frame update.
     void Start()
@@ -43,6 +44,8 @@ public class PlayerScript : MonoBehaviour
         }
 
         Hide();
+
+        Take();
     }
 
     public void takeHit(int damage)
@@ -93,6 +96,10 @@ public class PlayerScript : MonoBehaviour
             takeHit(25);
             speed /= 3;
         }
+        if (other.CompareTag("Item"))
+        {
+            itemCollider = other;  // Сохраняем коллайдер двери
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -108,6 +115,10 @@ public class PlayerScript : MonoBehaviour
         if (other == doorCollider)
         {
             doorCollider = null;  // Сбрасываем коллайдер двери
+        }
+        if (other == itemCollider)
+        {
+            itemCollider = null;  // Сбрасываем коллайдер двери
         }
         if (other.CompareTag("Monster"))
         {
@@ -143,8 +154,8 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             //если дверь заперта и у персонажа есть ключ - дверь открыта 
-            if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen() 
-                && gameObject.GetComponent<Items>().GetBools(0)) // 0 == Key
+            if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen() )
+                //&& //gameObject.GetComponent<Items>().GetBools(0)) // 0 == Key
             {
                 //можно сделать по стандарту через булевы переменные
                 doorCollider.gameObject.GetComponent<Door>().SetOpen(true);
@@ -157,21 +168,37 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void Take()
+    {
+        if (itemCollider != null && itemCollider.IsTouching(GetComponent<Collider2D>()))
+        {
+            Button tempButton = itemCollider.gameObject.GetComponent<Button>();
+            tempButton.onClick.AddListener(OnClickAction);
+        }
+    }
+
+    public void OnClickAction()
+    {
+        Item item = itemCollider.gameObject.GetComponent<Item>();
+        //gameObject.GetComponent<Inventory>().AddItem(item.id, item);
+        Destroy(itemCollider.gameObject);
+    }
+
     public void Attack()
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
             //если враг в радиусе атаки и есть оружие - атака
-            if (enemyCollider != null && enemyCollider.IsTouching(GetComponent<Collider2D>())
-                && gameObject.GetComponent<Items>().GetBools(1)) // 1 == Amulet
+            if (enemyCollider != null && enemyCollider.IsTouching(GetComponent<Collider2D>()))
+                //&& gameObject.GetComponent<Items>().GetBools(1)) // 1 == Amulet
             {
                 Destroy(enemyCollider.gameObject); 
 
                 //Добавить проверку на ранг монстра
 
             }
-            else if (enemyCollider != null && enemyCollider.IsTouching(GetComponent<Collider2D>())
-                && gameObject.GetComponent<Items>().GetBools(2)) // 2 == Book
+            else if (enemyCollider != null && enemyCollider.IsTouching(GetComponent<Collider2D>()))
+                //&& gameObject.GetComponent<Items>().GetBools(2)) // 2 == Book
             {
                 Destroy(enemyCollider.gameObject);
 

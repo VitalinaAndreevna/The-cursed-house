@@ -1,16 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
+
+[System.Serializable]
 
 public class Item : MonoBehaviour
 {
-    public int index = 0; //Номер предмета, в этой игре будет всего 3 типа брони, поэтому писать более сложный скрипт нет смысла
+    public int index;
+    public string itemName;
+    public string itemDesc;
 
-    void OnTriggerEnter2D(Collider2D obj) //«Наезд» на объект
+    Collider2D playerCollider;
+    void OnTriggerEnter2D(Collider2D other) //«Наезд» на объект
     {
-        if (obj.transform.tag == "Player")
+        if (other.transform.tag == "Player")
         {
-            obj.GetComponent<Items>().AddItem(index);//Если наехал игрок, то он сможет подобрать предмет
+            playerCollider = other; // Сохраняем коллайдер игрока
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other == playerCollider)
+        {
+            playerCollider = null; // Сбрасываем коллайдер укрытия при выходе из него
+        }
+    }
+    private void Start()
+    {
+        Button tempButton = this.GetComponent<Button>();
+        tempButton.onClick.AddListener(delegate { SelectObject(); });
+    }
+
+    public void SelectObject()
+    {
+        if (playerCollider != null)
+        {
+            playerCollider.gameObject.GetComponent<Items>().AddItem(this);//Если наехал игрок, то он сможет подобрать предмет
             Destroy(gameObject); //Удаление объекта с карты
         }
     }

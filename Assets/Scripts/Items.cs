@@ -1,40 +1,46 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Items : MonoBehaviour
 {
-    public int[] items = new int[] { 0, 5, 10, 15, 20, 25 };
-    public bool[] hasItems = new bool[] { true, true, false, false, false, false };
+    private Inventory inventory; // Добавьте ссылку на объект Inventory
+    private bool[] hasItems; //Наличие предметов
+    private Sprite[] Sprites; //Наличие предметов
+    private Item[] itemsEl; //Наличие предметов
 
-    private int currItem = 0;
-    public int defence = 0;
-
-    public GameObject armorObject;
-    public Sprite[] sprites;
-
-    public void Equip(int index)
+    void Start()
     {
-        if (hasItems[index])
+        inventory = FindObjectOfType<Inventory>(); // Находит объект Inventory в сцене
+        int x = inventory.inventorySlots.GetComponentsInChildren<Slot>().Length;
+        hasItems = new bool[x];
+        Sprites = new Sprite[x];
+        itemsEl = new Item[x];
+        for (int i = 0; i < x; i++)
         {
-            currItem = index;
-            armorObject.GetComponent<SpriteRenderer>().sprite = sprites[currItem];
+            itemsEl[i] = null;
+            Sprites[i] = null;
+            hasItems[i] = false;
         }
     }
 
-    public void AddItem(int index)
+    public Sprite[] getSprites()
     {
-        hasItems[index] = true;
+        return Sprites;
     }
 
-    public int[] GetItems()
+    public bool[] getBools()
     {
-        return items;
+        return hasItems;
     }
 
-    public bool GetBools(int Item)
+    public Item[] getItems()
     {
-        return Array.IndexOf(items, Item) != -1;
+        return itemsEl;
+    }
+
+    public void AddItem(Item item)
+    {
+        hasItems[item.index] = true; //Добавление предмета при подборе
+        Sprites[item.index] = item.GetComponent<SpriteRenderer>().sprite;
+        itemsEl[item.index] = item;
     }
 }
