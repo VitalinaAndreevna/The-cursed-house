@@ -3,6 +3,7 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     private Inventory inventory; // Добавьте ссылку на объект Inventory
+
     private bool[] hasItems; //Наличие предметов
     private Sprite[] Sprites; //Наличие предметов
     private Item[] itemsEl; //Наличие предметов

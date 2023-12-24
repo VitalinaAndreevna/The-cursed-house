@@ -1,29 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
 {
-    public float distanceBetween;
-    public float changeTime;
-    public float speed;
+    public float speed = 4.0f;
+    public float changeTime = 3.0f;
+    public float distanceBetween = 7.0f;
+
     public GameObject bullet;
     public Transform bulletPos;    
 
     private float timer;
     private float shootTimer;
     private int direction = 1;
+
     private GameObject player;
     private Rigidbody2D rb;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer -= Time.deltaTime;
@@ -40,10 +38,10 @@ public class EnemyShooting : MonoBehaviour
         {
             shootTimer += Time.deltaTime;
 
-            if (shootTimer > 2)
+            if (shootTimer > 1.5f)
             {
                 shootTimer = 0;
-                shoot();
+                Instantiate(bullet, bulletPos.position, Quaternion.identity);
             }
         }        
     }
@@ -53,10 +51,5 @@ public class EnemyShooting : MonoBehaviour
         Vector2 position = rb.position;
         position.x = position.x + Time.deltaTime * speed * direction;
         rb.MovePosition(position);
-    }
-
-    void shoot()
-    {
-        Instantiate(bullet, bulletPos.position, Quaternion.identity);
     }
 }

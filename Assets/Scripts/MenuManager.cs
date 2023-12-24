@@ -1,5 +1,3 @@
-
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //Работа с интерфейсами
@@ -12,26 +10,27 @@ public class MenuManager : MonoBehaviour
     public bool isOpened = false; //Открыто ли меню
     public float volume = 50; //Громкость
     public bool isFullscreen = false; //Полноэкранный режим
+
     public Slider audioMixer; //Регулятор громкости
+
     public Dropdown resolutionDropdown; //Список с разрешениями для игры
     private Resolution[] resolutions; //Список доступных разрешений
     private int currResolutionIndex = 0; //Текущее разрешение
+
     public Canvas MainMenu; 
     public Canvas SettingsMenu;
-    // Start is called before the first frame update
+
     void Start()
     {
         SettingsMenu.enabled = isOpened;
     }
 
-    // Update is called once per frame
     void Update()
     {   
         if (isOpened && Input.GetKey(KeyCode.Escape))
         {
             ShowHideMenu();
         }
-            
     }
 
     public void ShowHideMenu()

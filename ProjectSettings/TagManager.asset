@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Monster
   - Item
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -53,4 +54,7 @@ TagManager:
     locked: 0
   - name: Inventory
     uniqueID: 3331081477
+    locked: 0
+  - name: Interface
+    uniqueID: 1356225643
     locked: 0

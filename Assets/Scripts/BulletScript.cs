@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
     private GameObject player;
     private Rigidbody2D rb;
+
     private float timer;
+    public float force = 7.0f;
+    public int damage = 10;
 
-    public float force;
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,18 +21,20 @@ public class BulletScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rot + 90);
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
 
-        if (timer > 5)        
-            Destroy(gameObject);        
+        if (timer > 4)
+            Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerScript>().takeShot(damage);
             Destroy(gameObject);
+        }
     }
 }

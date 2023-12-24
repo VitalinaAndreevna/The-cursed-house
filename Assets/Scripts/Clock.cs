@@ -1,20 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Clock : MonoBehaviour
 {
     public int hour1, hour2, minute1, minute2, second;
     private float gameTime;
-    private Text myText;
-    // Start is called before the first frame update
+    private TextMeshProUGUI myText;
+
     void Start()
     {
-        myText = GetComponent<Text>();
+        myText = GetComponent<TextMeshProUGUI>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         myText.text = "" + hour1 + hour2 + ":" + minute1 + minute2;

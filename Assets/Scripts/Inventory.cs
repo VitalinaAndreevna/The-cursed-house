@@ -16,18 +16,17 @@ public class Inventory : MonoBehaviour
         canvas.enabled = false;
         items = player.GetComponent<Items>();
         slots = inventorySlots.GetComponentsInChildren<Slot>(); //Получение всех ячеек
-
         Inspection.gameObject.SetActive(false);
     }
 
     void Update()
     {
         if (Inspection.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-        {
+        { 
             Inspection.gameObject.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.I))
-        {
+        { 
             canvas.enabled = !canvas.enabled;
         }
         UpdateUI();
@@ -40,12 +39,9 @@ public class Inventory : MonoBehaviour
             if (items.getBools()[i]) //Если такой предмет есть у пользователя, то он будет отображаться в слоте
             {
                 slots[i].UpdateSlot(items.getSprites()[i]);
-                Debug.Log(slots[i].id);
                 int local = i;
                 Button tempButton = slots[i].GetComponent<Button>();
-                Debug.Log(tempButton == null);
-                tempButton.interactable = true;
-                tempButton.onClick.AddListener(delegate { SelectObject(local); }); 
+                tempButton.onClick.AddListener(delegate { SelectObject(local); });
             }
             else
             {

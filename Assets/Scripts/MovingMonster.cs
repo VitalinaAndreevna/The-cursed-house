@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovingMonster : MonoBehaviour
 {
     public bool isTriggered = false;
-    public float speed;    
+    public float speed = 4.0f;    
     public float changeTime = 3.0f;
-    public float distanceBetween;
+    public float distanceBetween = 7.0f;
+    public int damage = 10;
+
     public GameObject player;
     public GameObject start;   
-
 
     private float distance;
     private float timer;
     private int direction = 1;
     private Rigidbody2D mRB2D;
-    
 
     void Start()
     {
@@ -60,6 +57,16 @@ public class MovingMonster : MonoBehaviour
             isTriggered = true;
         }
         else if (isTriggered)
+        {    
             transform.position = Vector2.MoveTowards(this.transform.position, start.transform.position, speed * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        { 
+            other.GetComponent<PlayerScript>().takeHit(damage);
+        }
     }
 }
