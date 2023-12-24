@@ -28,7 +28,6 @@ public class Inventory : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            UpdateUI(); //Обновление интерфейса
             canvas.enabled = !canvas.enabled;
         }
         UpdateUI();
@@ -41,8 +40,11 @@ public class Inventory : MonoBehaviour
             if (items.getBools()[i]) //Если такой предмет есть у пользователя, то он будет отображаться в слоте
             {
                 slots[i].UpdateSlot(items.getSprites()[i]);
+                Debug.Log(slots[i].id);
                 int local = i;
                 Button tempButton = slots[i].GetComponent<Button>();
+                Debug.Log(tempButton == null);
+                tempButton.interactable = true;
                 tempButton.onClick.AddListener(delegate { SelectObject(local); }); 
             }
             else

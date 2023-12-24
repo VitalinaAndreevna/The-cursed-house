@@ -26,10 +26,14 @@ public class Item : MonoBehaviour
             playerCollider = null; // —брасываем коллайдер укрыти€ при выходе из него
         }
     }
-    private void Start()
+    private void Update()
     {
-        Button tempButton = this.GetComponent<Button>();
-        tempButton.onClick.AddListener(delegate { SelectObject(); });
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (playerCollider != null)
+            { SelectObject(); };
+        }
+        
     }
 
     public void SelectObject()

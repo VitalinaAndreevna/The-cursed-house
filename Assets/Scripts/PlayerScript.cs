@@ -128,7 +128,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Hide()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (!GetHided.isHided)
             {
@@ -151,7 +151,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Open()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             //если дверь заперта и у персонажа есть ключ - дверь открыта 
             if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen() )
