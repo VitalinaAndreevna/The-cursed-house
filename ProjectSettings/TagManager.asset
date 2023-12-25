@@ -12,6 +12,7 @@ TagManager:
   - Monster
   - Item
   - Bullet
+  - DamageZone
   layers:
   - Default
   - TransparentFX
