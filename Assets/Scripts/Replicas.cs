@@ -18,6 +18,9 @@ public class Replicas : MonoBehaviour
 
     void Start()
     {
+        //Получение количества фраз
+        ReplicasClass.TextMorningLength = ReplicasClass.TextMorning.Length;
+        ReplicasClass.TextEveningLength = ReplicasClass.TextEvening.Length;
         ReplicasClass.TextRandomLength = ReplicasClass.TextRandom.Length;
         ReplicasClass.TextHideLength = ReplicasClass.TextHide.Length;
         ReplicasClass.TextInsidialsLength = ReplicasClass.TextInsidials.Length;
@@ -28,6 +31,7 @@ public class Replicas : MonoBehaviour
 
     void Update()
     {
+        //Получение текущего времени
         timer = time.text;
         SplitTimer = timer.Split(':');
         if (SplitTimer[0][0] == '0')
@@ -37,34 +41,43 @@ public class Replicas : MonoBehaviour
         hour = Int32.Parse(SplitTimer[0]);
         minute = Int32.Parse(SplitTimer[1]);
 
-        //Если время такое-то
-        if (hour > 6 && hour < 22 && hour % 2 == 0 && minute == 0) //Это условие надо будет потом изменить
+        //Если наступило утро
+        if (hour == 6 && minute < 10)
+        {
+            canvas.enabled = true;
+            text.text = ReplicasClass.TextMorning[UnityEngine.Random.Range(0, ReplicasClass.TextMorningLength)];
+        }
+
+        //Если наступила ночь
+        if (hour == 22 && minute < 10)
+        {
+            canvas.enabled = true;
+            text.text = ReplicasClass.TextEvening[UnityEngine.Random.Range(0, ReplicasClass.TextEveningLength)];
+        }
+
+        //Случайные фразы в течение дня
+        if (hour > 6 && hour < 22 && hour % 2 == 0 && minute < 10)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextRandom[UnityEngine.Random.Range(0, ReplicasClass.TextRandomLength)];
         }
 
+        //Когда персонаж спрятался
         if (GetHided.isHided && !isShow)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextHide[UnityEngine.Random.Range(0, ReplicasClass.TextHideLength)];
             isShow  = true;
         }
-
         if (!GetHided.isHided)
         {
             canvas.enabled = false;
             isShow = false;
         }
 
-        //Если случилось сюжетное событие в виде поднятия предмета
-        if (Input.GetKeyDown(KeyCode.Alpha3)) //Это условие надо будет потом изменить
-        {
-            canvas.enabled = true;
-            text.text = ReplicasClass.TextInsidials[UnityEngine.Random.Range(0, ReplicasClass.TextInsidialsLength)][0];
-        }
     }
 
+    //Функция для кнопки
     public void NextReplicas()
     {
         if (ReplicasClass.TextRandom.Contains(text.text))
