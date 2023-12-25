@@ -9,9 +9,6 @@ using UnityEngine.Events;
 public class WorldTimeWatcher : MonoBehaviour
 {
     [SerializeField]
-    private WorldLight worldLight;
-
-    [SerializeField]
     private WorldTime.WorldTime worldTime;
 
     [SerializeField]
