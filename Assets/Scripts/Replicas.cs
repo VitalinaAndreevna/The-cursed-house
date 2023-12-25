@@ -85,7 +85,6 @@ public class Replicas : MonoBehaviour
             canvas.enabled = true;
             text.text = TextInsidials[UnityEngine.Random.Range(0, TextInsidialsLength)][0];
         }
-
     }
 
     public void NextReplicas()
