@@ -66,12 +66,9 @@ public class PlayerScript : MonoBehaviour
                 isInvincible = false;
         }
 
-        if(eventManager.isNight)
-        { 
-            Hide();
-            Attack();
-        }
         //иначе системное сообщение что нельзя
+        Hide();
+        Attack();
         Open();
     }
 
@@ -170,7 +167,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (!GetHided.isHided)
+            if (!GetHided.isHided && eventManager.isNight)
             {
                 if (shelterCollider != null)
                 {
