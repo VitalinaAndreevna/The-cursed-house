@@ -10,7 +10,7 @@ public class Replicas : MonoBehaviour
     public TextMeshProUGUI text;
     public TextMeshProUGUI time;
 
-    public bool isShow;
+    public bool isShowHide, isShowRandom;
 
     private string timer;
     private string[] SplitTimer;
@@ -42,37 +42,42 @@ public class Replicas : MonoBehaviour
         minute = Int32.Parse(SplitTimer[1]);
 
         //Если наступило утро
-        if (hour == 6 && minute < 10)
+        if (hour == 6 && minute == 10)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextMorning[UnityEngine.Random.Range(0, ReplicasClass.TextMorningLength)];
         }
 
         //Если наступила ночь
-        if (hour == 22 && minute < 10)
+        if (hour == 22 && minute == 10)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextEvening[UnityEngine.Random.Range(0, ReplicasClass.TextEveningLength)];
         }
 
         //Случайные фразы в течение дня
-        if (hour > 6 && hour < 22 && hour % 2 == 0 && minute < 10)
+        if (hour > 6 && hour < 22 && hour % 2 == 0 && minute == 0 && !isShowRandom)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextRandom[UnityEngine.Random.Range(0, ReplicasClass.TextRandomLength)];
+            isShowRandom = true;
+        }
+        else if (minute != 0 && isShowRandom)
+        {
+            isShowRandom = false;
         }
 
         //Когда персонаж спрятался
-        if (GetHided.isHided && !isShow)
+        if (GetHided.isHided && !isShowHide)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextHide[UnityEngine.Random.Range(0, ReplicasClass.TextHideLength)];
-            isShow  = true;
+            isShowHide  = true;
         }
-        if (!GetHided.isHided)
+        else if (!GetHided.isHided && isShowHide)
         {
             canvas.enabled = false;
-            isShow = false;
+            isShowHide = false;
         }
 
     }
