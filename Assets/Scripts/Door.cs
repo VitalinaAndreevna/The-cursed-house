@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public bool isopen = false;
+    public bool isOpen = true;
 
     public bool GetOpen()
     {
-        return isopen;
+        return isOpen;
     }
 
     public void SetOpen(bool open)
     {
-        isopen = open;
+        isOpen = open;
     }
 }

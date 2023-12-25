@@ -160,14 +160,18 @@ public class PlayerScript : MonoBehaviour
 
     public void Open()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             //если дверь заперта и у персонажа есть ключ - дверь открыта 
-            if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen()
+            if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen() 
                 && gameObject.GetComponent<Items>().getBools()[0]) // 0 == Key
             {
                 //можно сделать по стандарту через булевы переменные
                 doorCollider.gameObject.GetComponent<Door>().SetOpen(true);
+            }
+            else if (doorCollider != null && doorCollider.gameObject.GetComponent<Door>().GetOpen())
+            {
+
             }
             //иначе надпись "Найдите ключ"
             else if (doorCollider != null)
