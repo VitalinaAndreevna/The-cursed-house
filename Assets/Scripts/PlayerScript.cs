@@ -8,13 +8,11 @@ public class PlayerScript : MonoBehaviour
     public float distance = 2f;
     public float timeInvincible = 2.0f;
     
-
     private bool isInvincible;
     private float invincibleTimer;
 
     public int sanity = 100;
     private int maxSanity;
-
 
     private Collider2D enemyCollider;  // Добавляем переменную для коллайдера укрытия
     private Collider2D doorCollider;

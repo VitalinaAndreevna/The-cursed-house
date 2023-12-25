@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -8,12 +10,22 @@ public class Item : MonoBehaviour
 
     Collider2D playerCollider;
 
+    public Canvas canvas;
+    public TextMeshProUGUI text;
+
+    void Start()
+    {
+        canvas.enabled = false;
+    }
+
     private void Update()
     {
         if (playerCollider != null && Input.GetKeyDown(KeyCode.E))
         {
             playerCollider.gameObject.GetComponent<Items>().AddItem(this);//Если наехал игрок, то он сможет подобрать предмет
             Destroy(gameObject); //Удаление объекта с карты
+            canvas.enabled = true;
+            text.text = ReplicasClass.TextInsidials[this.index][0];
         }
     }
 

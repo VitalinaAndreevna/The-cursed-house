@@ -10,9 +10,11 @@ public class Replicas : MonoBehaviour
     public TextMeshProUGUI text;
     public TextMeshProUGUI time;
 
+    public bool isShow;
+
     private string timer;
     private string[] SplitTimer;
-    private int hour = 0;
+    private int hour, minute;
 
     void Start()
     {
@@ -22,8 +24,13 @@ public class Replicas : MonoBehaviour
         ReplicasClass.ReplLength = ReplicasClass.Repl0.Length;
 
         timer = time.text;
-        SplitTimer = timer.Split();
-        hour = Int32.Parse(SplitTimer[0]);
+        SplitTimer = timer.Split(':');
+        if (SplitTimer[0][0] == '0')
+            SplitTimer[0] = SplitTimer[0][1].ToString();
+        if (SplitTimer[1][0] == '0')
+            SplitTimer[1] = SplitTimer[1][1].ToString();
+        hour = Int32.Parse(SplitTimer[0]); 
+        minute = Int32.Parse(SplitTimer[1]);
 
         canvas.enabled = false;        
     }
@@ -31,16 +38,23 @@ public class Replicas : MonoBehaviour
     void Update()
     {
         //≈сли врем€ такое-то
-        if (hour>6 && hour <22 && hour%2==0) //Ёто условие надо будет потом изменить
+        if (hour > 6 && hour < 22 && hour % 2 == 0 && minute == 0) //Ёто условие надо будет потом изменить
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextRandom[UnityEngine.Random.Range(0, ReplicasClass.TextRandomLength)];
         }
 
-        if (GetHided.isHided)
+        if (GetHided.isHided && !isShow)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextHide[UnityEngine.Random.Range(0, ReplicasClass.TextHideLength)];
+            isShow  = true;
+        }
+
+        if (!GetHided.isHided)
+        {
+            canvas.enabled = false;
+            isShow = false;
         }
 
         //≈сли случилось сюжетное событие в виде подн€ти€ предмета
