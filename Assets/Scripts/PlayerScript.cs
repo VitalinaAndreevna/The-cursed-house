@@ -61,6 +61,12 @@ public class PlayerScript : MonoBehaviour
         Open();
     }
 
+    public void takeDeath()
+    {
+        sanityBar.fillAmount = 0;
+        Destroy(gameObject);
+    }
+
     public void takeHit(int damage)
     {
         if (GetHided.isHided || isInvincible)
