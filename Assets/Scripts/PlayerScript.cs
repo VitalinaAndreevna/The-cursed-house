@@ -21,6 +21,8 @@ public class PlayerScript : MonoBehaviour
 
     public Image sanityBar;
 
+    private Animator animator;
+
     private EventManager eventManager;
 
     void Start()
@@ -31,6 +33,7 @@ public class PlayerScript : MonoBehaviour
         rend = gameObject.GetComponent<SpriteRenderer>();
 
         eventManager = FindObjectOfType<EventManager>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -43,7 +46,20 @@ public class PlayerScript : MonoBehaviour
             position.x = position.x + speed * horizontal * Time.deltaTime;
             //position.y = position.y + speed * vertical * Time.deltaTime;
             transform.position = position;
+
+            animator.SetFloat("x", horizontal);
+
+            if (horizontal == 0)
+            {
+                animator.SetBool("isWalking", false);
+            }
+            else
+            {
+                animator.SetBool("isWalking", true);
+            }
         }
+
+        
 
         if (isInvincible)
         {
