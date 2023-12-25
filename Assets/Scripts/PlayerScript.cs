@@ -165,19 +165,18 @@ public class PlayerScript : MonoBehaviour
         {
             //если дверь заперта и у персонажа есть ключ - дверь открыта 
             if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen() 
-                && gameObject.GetComponent<Items>().getBools()[0]) // 0 == Key
+                && gameObject.GetComponent<Items>().getBools()[2]) // 2 == Key
             {
-                //можно сделать по стандарту через булевы переменные
                 doorCollider.gameObject.GetComponent<Door>().SetOpen(true);
-            }
-            else if (doorCollider != null && doorCollider.gameObject.GetComponent<Door>().GetOpen())
-            {                
-                transform.position = doorCollider.gameObject.GetComponent<Door>().GetDestination().position;
             }
             //иначе надпись "Найдите ключ"
             else if (doorCollider != null)
             {
 
+            }
+            if (doorCollider != null && doorCollider.gameObject.GetComponent<Door>().GetOpen())
+            {
+                transform.position = doorCollider.gameObject.GetComponent<Door>().GetDestination().position;
             }
         }
     }
@@ -187,13 +186,13 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             //если враг в радиусе атаки и есть оружие - атака
-            if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[1]) // 1 == Amulet
+            if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[0]) // 0 == Amulet
             {
                 Destroy(enemyCollider.gameObject); 
 
                 //Добавить проверку на ранг монстра
             }
-            else if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[2]) // 2 == Book
+            else if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[1]) // 1 == Book
             {
                 Destroy(enemyCollider.gameObject);
 

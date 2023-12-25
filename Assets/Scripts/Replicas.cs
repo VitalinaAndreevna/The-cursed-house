@@ -23,20 +23,20 @@ public class Replicas : MonoBehaviour
         ReplicasClass.TextInsidialsLength = ReplicasClass.TextInsidials.Length;
         ReplicasClass.ReplLength = ReplicasClass.Repl0.Length;
 
+        canvas.enabled = false;        
+    }
+
+    void Update()
+    {
         timer = time.text;
         SplitTimer = timer.Split(':');
         if (SplitTimer[0][0] == '0')
             SplitTimer[0] = SplitTimer[0][1].ToString();
         if (SplitTimer[1][0] == '0')
             SplitTimer[1] = SplitTimer[1][1].ToString();
-        hour = Int32.Parse(SplitTimer[0]); 
+        hour = Int32.Parse(SplitTimer[0]);
         minute = Int32.Parse(SplitTimer[1]);
 
-        canvas.enabled = false;        
-    }
-
-    void Update()
-    {
         //Если время такое-то
         if (hour > 6 && hour < 22 && hour % 2 == 0 && minute == 0) //Это условие надо будет потом изменить
         {
