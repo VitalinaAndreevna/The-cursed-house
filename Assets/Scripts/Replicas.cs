@@ -8,7 +8,11 @@ public class Replicas : MonoBehaviour
 {
     public Canvas canvas;
     public TextMeshProUGUI text;
+    public TextMeshProUGUI time;
 
+    private string timer;
+    private string[] SplitTimer;
+    private int hour = 0;
 
     void Start()
     {
@@ -17,20 +21,23 @@ public class Replicas : MonoBehaviour
         ReplicasClass.TextInsidialsLength = ReplicasClass.TextInsidials.Length;
         ReplicasClass.ReplLength = ReplicasClass.Repl0.Length;
 
+        timer = time.text;
+        SplitTimer = timer.Split();
+        hour = Int32.Parse(SplitTimer[0]);
+
         canvas.enabled = false;        
     }
 
     void Update()
     {
         //Если время такое-то
-        if (Input.GetKeyDown(KeyCode.Alpha1)) //Это условие надо будет потом изменить
+        if (hour>6 && hour <22 && hour%2==0) //Это условие надо будет потом изменить
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextRandom[UnityEngine.Random.Range(0, ReplicasClass.TextRandomLength)];
         }
 
-        //Если статус игрока isHided = True
-        if (Input.GetKeyDown(KeyCode.Alpha2)) //Это условие надо будет потом изменить
+        if (GetHided.isHided)
         {
             canvas.enabled = true;
             text.text = ReplicasClass.TextHide[UnityEngine.Random.Range(0, ReplicasClass.TextHideLength)];
