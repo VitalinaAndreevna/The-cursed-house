@@ -21,12 +21,16 @@ public class PlayerScript : MonoBehaviour
 
     public Image sanityBar;
 
+    private EventManager eventManager;
+
     void Start()
     {
         maxSanity = sanity;
 
         shelterCollider = null;  // Инициализируем переменную коллайдера
         rend = gameObject.GetComponent<SpriteRenderer>();
+
+        eventManager = FindObjectOfType<EventManager>();
     }
 
     void Update()
@@ -48,7 +52,12 @@ public class PlayerScript : MonoBehaviour
                 isInvincible = false;
         }
 
-        Hide();
+        //if(eventManager.isNight)
+        //{ 
+            Hide();
+            Attack();
+        //}
+
         Open();
     }
 
@@ -188,15 +197,19 @@ public class PlayerScript : MonoBehaviour
             //если враг в радиусе атаки и есть оружие - атака
             if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[0]) // 0 == Amulet
             {
-                Destroy(enemyCollider.gameObject); 
+                if(enemyCollider.gameObject.GetComponent<MovingMonster>() != null 
+                    || enemyCollider.gameObject.GetComponent<EnemyShooting>() != null) 
+                    //MovingMonster и EnemyShooting - первый ранг
+                    Destroy(enemyCollider.gameObject); 
 
-                //Добавить проверку на ранг монстра
+                //Иначе у вас нет оружия против него
             }
             else if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[1]) // 1 == Book
             {
-                Destroy(enemyCollider.gameObject);
+                //if (enemyCollider.gameObject.GetComponent<>() != null) //MovingMonster - первый ранг
+                    Destroy(enemyCollider.gameObject);
 
-                //Добавить проверку на ранг монстра
+                //Иначе у вас нет оружия против него
             }
         }
     }

@@ -13,20 +13,18 @@ public class Item : MonoBehaviour
     public Canvas canvas;
     public TextMeshProUGUI text;
 
+    private EventManager eventManager;
+
     void Start()
     {
+        eventManager = FindObjectOfType<EventManager>();
         canvas.enabled = false;
     }
 
     private void Update()
     {
-        if (playerCollider != null && Input.GetKeyDown(KeyCode.E))
-        {
-            playerCollider.gameObject.GetComponent<Items>().AddItem(this);//Если наехал игрок, то он сможет подобрать предмет
-            Destroy(gameObject); //Удаление объекта с карты
-            canvas.enabled = true;
-            text.text = ReplicasClass.TextInsidials[this.index][0];
-        }
+        //if (eventManager.isNight)
+            Find();
     }
 
     void OnTriggerEnter2D(Collider2D other) //«Наезд» на объект
@@ -42,6 +40,17 @@ public class Item : MonoBehaviour
         if (other == playerCollider)
         { 
             playerCollider = null; // Сбрасываем коллайдер укрытия при выходе из него
+        }
+    }
+
+    private void Find()
+    {
+        if (playerCollider != null && Input.GetKeyDown(KeyCode.E))
+        {
+            playerCollider.gameObject.GetComponent<Items>().AddItem(this);
+            Destroy(gameObject);
+            canvas.enabled = true;
+            text.text = ReplicasClass.TextInsidials[this.index][0];
         }
     }
 }
