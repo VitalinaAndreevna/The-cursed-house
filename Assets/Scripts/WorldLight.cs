@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,25 +6,36 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
 
+[RequireComponent(typeof(Light2D))]
 public class WorldLight : MonoBehaviour
 {
-    [SerializeField] private Gradient gradient;
-    private Light2D wLight;
-    private float startTime;
-    public float duration;
+    private Light2D light;
+
+    [SerializeField]
+    private WorldTime.WorldTime worldTime;
+
+    [SerializeField]
+    private Gradient gradient;
 
     private void Awake()
     {
-        startTime = Time.time;
-        wLight = GetComponent<Light2D>();
+        light = GetComponent<Light2D>();
+        worldTime.WorldTimeChanged += OnWorldTimeChanged;
+
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        float timeElapsed = Time.time - startTime;
-        float persetage= Mathf.Sin(f: timeElapsed / duration * Mathf.PI * 2) * 0.5f + 0.5f;
-        persetage = Mathf.Clamp01(persetage);
+        worldTime.WorldTimeChanged -= OnWorldTimeChanged;
+    }
 
-        wLight.color = gradient.Evaluate(persetage);
+    private void OnWorldTimeChanged(object sender, TimeSpan newTime)
+    {
+        light.color = gradient.Evaluate(PercentOfDay(newTime));
+    }
+
+    private float PercentOfDay(TimeSpan timeSpan)
+    {
+        return (float)timeSpan.TotalMinutes % WorldTime.WorldTimeConstants.MinutesInDay / WorldTime.WorldTimeConstants.MinutesInDay;
     }
 }

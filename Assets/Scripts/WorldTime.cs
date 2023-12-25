@@ -11,7 +11,7 @@ namespace WorldTime
         [SerializeField]
         private float _dayLength; // in seconds
 
-        private TimeSpan _currentTime;
+        private TimeSpan _currentTime = TimeSpan.FromHours(9);
         private float _minuteLength => _dayLength / WorldTimeConstants.MinutesInDay;
 
         private void Start()
