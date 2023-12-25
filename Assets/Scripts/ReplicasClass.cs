@@ -1,5 +1,28 @@
 public static class ReplicasClass
 {
+    public static string[] TextMorning =
+    {
+        "Наконец-то утро...",
+        "Такими темпами я в Бога поверю...",
+        "Я пережил эту ночь...",
+        "Снова рассвет, выход... есть?",
+        "Они меня в могилу сведут...",
+        "Ха! Я живой! Знайте своё место, твари!",
+        "Вот она - звезда по имени Солнце...",
+        "Город просыпается..."
+    };
+    public static string[] TextEvening =
+    {
+        "И снова седая ночь...",
+        "Город засыпает... Просыпается...",
+        "Пожелай мне удачи в бою...",
+        "На улице стемнело, а я не за столом...",
+        "Ночь и тишина, данная на век...",
+        "Белая ночь опустилась как облако...",
+        "Ночь, что за странная свобода...",
+        "Ночь, ожиданья холод... Боль, словно я расколот..."
+    };
+
     public static string[] TextRandom =
     {
         "Мой друг не мог покончить с собой! Я в это не верю! Нужно осмотреть весь дом и найти настоящую причину смерти.",
@@ -9,7 +32,7 @@ public static class ReplicasClass
         "Чем же ты тут занимался, Ник...",
         "Кажется, у Ника были от меня секреты, рассказывать которые он не собирался.",
         "Как это связано с Ником? Я пока не до конца понимаю.",
-        "Что же это может значить?"
+        "Что же это всё может значить?"
     };
 
     public static string[] TextHide =
@@ -20,7 +43,8 @@ public static class ReplicasClass
         "Нужно отдышаться и идти дальше.",
         "Ну кто придумал этих тварей?..",
         "Если я их не вижу, видят ли они меня?..",
-        "Нужно следить за уровнем рассудка!"
+        "Нужно следить за уровнем рассудка!",
+        "Признаться честно, они меня пугают..."
     };
 
     public static string[] Repl0 =
@@ -104,6 +128,6 @@ public static class ReplicasClass
 
     public static string[][] TextInsidials = { Repl0, Repl1, Repl2, Repl3, Repl4, Repl5, Repl6, Repl7, Repl8, Repl9, Repl10, Repl11, Repl12};
 
-    public static int TextRandomLength, TextHideLength, TextInsidialsLength, ReplLength;
+    public static int TextMorningLength, TextEveningLength, TextRandomLength, TextHideLength, TextInsidialsLength, ReplLength;
 
 }

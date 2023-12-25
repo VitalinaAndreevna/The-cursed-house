@@ -4,23 +4,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class EventManage : MonoBehaviour
+public class EventManager : MonoBehaviour
 {
     public TextMeshProUGUI time;
+    public GameObject[] monsters;
 
-    public bool isShow;
+    public bool isNight;
 
     private string timer;
     private string[] SplitTimer;
     private int hour, minute;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         timer = time.text;
@@ -35,7 +29,20 @@ public class EventManage : MonoBehaviour
         //Если время такое-то
         if (hour > 6 && hour < 22) //Это условие надо будет потом изменить
         {
-
+            for (int i = 0; i < monsters.Length; i++)
+            {
+                monsters[i].SetActive(false);
+            }
+            isNight = false;
         }
+        else
+        {
+            isNight = true;
+            for (int i = 0; i < monsters.Length; i++)
+            {
+                monsters[i].SetActive(true);
+            }
+        }
+
     }
 }
