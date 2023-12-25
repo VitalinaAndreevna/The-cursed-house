@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Light2D))]
 public class WorldLight : MonoBehaviour
 {
-    private Light2D light;
+    private Light2D wLight;
 
     [SerializeField]
     private WorldTime.WorldTime worldTime;
@@ -19,7 +19,7 @@ public class WorldLight : MonoBehaviour
 
     private void Awake()
     {
-        light = GetComponent<Light2D>();
+        wLight = GetComponent<Light2D>();
         worldTime.WorldTimeChanged += OnWorldTimeChanged;
 
     }
@@ -31,7 +31,7 @@ public class WorldLight : MonoBehaviour
 
     private void OnWorldTimeChanged(object sender, TimeSpan newTime)
     {
-        light.color = gradient.Evaluate(PercentOfDay(newTime));
+        wLight.color = gradient.Evaluate(PercentOfDay(newTime));
     }
 
     private float PercentOfDay(TimeSpan timeSpan)

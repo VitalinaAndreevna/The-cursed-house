@@ -23,8 +23,9 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
-        //if (eventManager.isNight)
+        if (!eventManager.isNight)
             Find();
+        //иначе сообщение что нельзя
     }
 
     void OnTriggerEnter2D(Collider2D other) //«Наезд» на объект

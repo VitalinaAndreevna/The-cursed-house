@@ -59,8 +59,6 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        
-
         if (isInvincible)
         {
             invincibleTimer -= Time.deltaTime;
@@ -68,12 +66,12 @@ public class PlayerScript : MonoBehaviour
                 isInvincible = false;
         }
 
-        //if(eventManager.isNight)
-        //{ 
+        if(eventManager.isNight)
+        { 
             Hide();
             Attack();
-        //}
-
+        }
+        //иначе системное сообщение что нельзя
         Open();
     }
 
@@ -81,6 +79,7 @@ public class PlayerScript : MonoBehaviour
     {
         sanityBar.fillAmount = 0;
         Destroy(gameObject);
+        //системное сообщение о смерти, завершение игры, возвращение в меню
     }
 
     public void takeHit(int damage)
@@ -205,6 +204,7 @@ public class PlayerScript : MonoBehaviour
             {
 
             }
+
             if (doorCollider != null && doorCollider.gameObject.GetComponent<Door>().GetOpen())
             {
                 transform.position = doorCollider.gameObject.GetComponent<Door>().GetDestination().position;
@@ -220,15 +220,16 @@ public class PlayerScript : MonoBehaviour
             if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[0]) // 0 == Amulet
             {
                 if(enemyCollider.gameObject.GetComponent<MovingMonster>() != null 
-                    || enemyCollider.gameObject.GetComponent<EnemyShooting>() != null) 
-                    //MovingMonster и EnemyShooting - первый ранг
+                    || enemyCollider.gameObject.GetComponent<EnemyShooting>() != null
+                    || enemyCollider.gameObject.GetComponent<DamageZone>() != null)
+                    //MovingMonster, EnemyShooting и DamageZone - первый ранг
                     Destroy(enemyCollider.gameObject); 
 
                 //Иначе у вас нет оружия против него
             }
             else if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[1]) // 1 == Book
             {
-                //if (enemyCollider.gameObject.GetComponent<>() != null) //MovingMonster - первый ранг
+                if (enemyCollider.gameObject.GetComponent<InstaKiller>() != null) //InstaKiller - первый ранг
                     Destroy(enemyCollider.gameObject);
 
                 //Иначе у вас нет оружия против него
