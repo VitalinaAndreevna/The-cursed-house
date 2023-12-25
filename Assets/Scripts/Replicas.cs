@@ -16,6 +16,8 @@ public class Replicas : MonoBehaviour
     private string[] SplitTimer;
     private int hour, minute;
 
+    public Animator animator;
+
     void Start()
     {
         //Получение количества фраз
@@ -26,11 +28,12 @@ public class Replicas : MonoBehaviour
         ReplicasClass.TextInsidialsLength = ReplicasClass.TextInsidials.Length;
         ReplicasClass.ReplLength = ReplicasClass.Repl0.Length;
 
-        canvas.enabled = false;        
+        canvas.enabled = false; 
     }
 
     void Update()
     {
+
         //Получение текущего времени
         timer = time.text;
         SplitTimer = timer.Split(':');
@@ -80,6 +83,9 @@ public class Replicas : MonoBehaviour
             isShowHide = false;
         }
 
+
+
+        animator.SetBool("IsVisible", canvas.enabled);
     }
 
     //Функция для кнопки
