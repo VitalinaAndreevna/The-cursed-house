@@ -7,12 +7,14 @@ public class PlayerScript : MonoBehaviour
     public bool flagMove = true;
     public float distance = 2f;
     public float timeInvincible = 2.0f;
+    
 
     private bool isInvincible;
     private float invincibleTimer;
 
     public int sanity = 100;
     private int maxSanity;
+
 
     private Collider2D enemyCollider;  // Добавляем переменную для коллайдера укрытия
     private Collider2D doorCollider;
@@ -34,10 +36,10 @@ public class PlayerScript : MonoBehaviour
         if(flagMove)
         { 
             float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
+            //float vertical = Input.GetAxis("Vertical");
             Vector2 position = transform.position;
             position.x = position.x + speed * horizontal * Time.deltaTime;
-            position.y = position.y + speed * vertical * Time.deltaTime;
+            //position.y = position.y + speed * vertical * Time.deltaTime;
             transform.position = position;
         }
 
@@ -49,6 +51,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         Hide();
+        Open();
     }
 
     public void takeHit(int damage)
@@ -170,8 +173,8 @@ public class PlayerScript : MonoBehaviour
                 doorCollider.gameObject.GetComponent<Door>().SetOpen(true);
             }
             else if (doorCollider != null && doorCollider.gameObject.GetComponent<Door>().GetOpen())
-            {
-
+            {                
+                transform.position = doorCollider.gameObject.GetComponent<Door>().GetDestination().position;
             }
             //иначе надпись "Найдите ключ"
             else if (doorCollider != null)
