@@ -2260,7 +2260,8 @@ Transform:
   m_LocalPosition: {x: 46.55, y: -0.41, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1616737061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &657080257
@@ -2277,7 +2278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeCamera: {fileID: 1581128903}
   nextCamera: {fileID: 642743412}
-  doorToOpen: {fileID: 1632119823}
+  doorToOpen: {fileID: 1376151617}
   isOpen: 1
 --- !u!61 &657080258
 BoxCollider2D:
@@ -3991,6 +3992,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5379589809979546891, guid: 0721e7f779f1ae244aaf3843f4071295, type: 3}
   m_PrefabInstance: {fileID: 1182699014}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1376151616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1376151617}
+  m_Layer: 0
+  m_Name: DoorSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1376151617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376151616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.59, y: -3.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1632119823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1395525859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4452,6 +4484,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1616737060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616737061}
+  m_Layer: 0
+  m_Name: DoorSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1616737061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616737060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.55, y: -3.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 657080256}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1617443270
 GameObject:
   m_ObjectHideFlags: 0
@@ -4580,7 +4643,8 @@ Transform:
   m_LocalPosition: {x: -13.15, y: -0.7408, z: 0}
   m_LocalScale: {x: 1.0511832, y: 0.52065, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1376151617}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1632119824
@@ -4597,7 +4661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeCamera: {fileID: 642743412}
   nextCamera: {fileID: 1581128903}
-  doorToOpen: {fileID: 657080256}
+  doorToOpen: {fileID: 1616737061}
   isOpen: 1
 --- !u!61 &1632119825
 BoxCollider2D:
@@ -4947,6 +5011,7 @@ MonoBehaviour:
   canvas: {fileID: 1681763240}
   text: {fileID: 1665169245}
   time: {fileID: 1078436507}
+  isShow: 0
 --- !u!114 &1681763238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5790,7 +5855,7 @@ Transform:
   m_GameObject: {fileID: 2077113587}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2318225, y: -0.25442004, z: -10}
+  m_LocalPosition: {x: -5.2302566, y: -0.25442004, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
