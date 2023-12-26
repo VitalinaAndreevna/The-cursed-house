@@ -38,7 +38,12 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        if(flagMove)
+        //иначе системное сообщение что нельзя
+        Hide();
+        Attack();
+        Open();
+
+        if (flagMove)
         { 
             float horizontal = Input.GetAxis("Horizontal");
             //float vertical = Input.GetAxis("Vertical");
@@ -65,11 +70,6 @@ public class PlayerScript : MonoBehaviour
             if (invincibleTimer < 0)
                 isInvincible = false;
         }
-
-        //иначе системное сообщение что нельзя
-        Hide();
-        Attack();
-        Open();
     }
 
     public void takeDeath()

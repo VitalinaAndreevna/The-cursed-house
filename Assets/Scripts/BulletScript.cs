@@ -6,7 +6,7 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
 
     private float timer;
-    public float force = 7.0f;
+    public float force = 8.0f;
     public int damage = 10;
 
     void Start()

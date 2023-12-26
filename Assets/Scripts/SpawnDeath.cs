@@ -17,9 +17,8 @@ public class SpawnDeath : MonoBehaviour
     {
         randPoint = Random.Range(0, spawnPoint.Length);
         sanityPlank = player.GameObject().GetComponent<PlayerScript>().sanity;
-        Debug.Log(player.GameObject().GetComponent<PlayerScript>().sanity);
 
-        if (sanityPlank <= 10 && canSpawn)
+        if (sanityPlank <= 30 && canSpawn)
         {            
             Instantiate(enemyToSpawn, spawnPoint[randPoint].transform.position, Quaternion.identity);
             canSpawn = false;

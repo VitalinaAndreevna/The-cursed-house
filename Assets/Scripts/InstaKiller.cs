@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class InstaKiller : MonoBehaviour
 {
-    public float speed = 1.0f;
+    public float speed = 0.5f;
     public int damage = 100;
-    public GameObject player;
+    public PlayerScript player;
 
     private Rigidbody2D mRB2D;
 
@@ -14,6 +14,7 @@ public class InstaKiller : MonoBehaviour
     void Start()
     {
         mRB2D = GetComponent<Rigidbody2D>();
+        player = FindObjectOfType<PlayerScript>();
     }
 
     // Update is called once per frame
