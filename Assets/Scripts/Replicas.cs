@@ -33,7 +33,10 @@ public class Replicas : MonoBehaviour
 
     void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            NextReplicas();
+        }
         //Получение текущего времени
         timer = time.text;
         SplitTimer = timer.Split(':');
