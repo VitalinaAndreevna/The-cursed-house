@@ -21,7 +21,7 @@ TagManager:
   - Water
   - UI
   - IgnoreCollision
-  - 
+  - IgnoreGlobalLIght
   - 
   - 
   - 
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: Interface
     uniqueID: 1356225643
+    locked: 0
+  - name: IgnoreGlobalLight
+    uniqueID: 2467430021
     locked: 0
