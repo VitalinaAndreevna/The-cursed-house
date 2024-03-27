@@ -8,12 +8,9 @@ public class InstaKiller : MonoBehaviour
     public int damage = 100;
     public PlayerScript player;
 
-    private Rigidbody2D mRB2D;
-
     // Start is called before the first frame update
     void Start()
     {
-        mRB2D = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<PlayerScript>();
     }
 

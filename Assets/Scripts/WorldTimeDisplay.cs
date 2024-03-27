@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace WorldTime
 {
-    [RequireComponent (typeof(TMP_Text))] 
-    
+    [RequireComponent(typeof(TMP_Text))]
+
     public class WorldTimeDisplay : MonoBehaviour
     {
         [SerializeField]

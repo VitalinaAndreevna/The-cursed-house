@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Item : MonoBehaviour
 
     public Canvas canvas;
     public TextMeshProUGUI text;
+
+    public Canvas alertsCanvas;
 
     private EventManager eventManager;
 
@@ -26,13 +29,19 @@ public class Item : MonoBehaviour
         if (!eventManager.isNight)
             Find();
         //иначе сообщение что нельзя
+        else
+        {
+            alertsCanvas.enabled = true;
+            alertsCanvas.gameObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "Сейчас ночь!";
+            StartCoroutine(alertsCanvas.gameObject.GetComponent<Alerts>().HideCanvasAfterDelay(2.0f));
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D other) //«Наезд» на объект
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.transform.tag == "Player")
         { 
-            playerCollider = other; // Сохраняем коллайдер игрока
+            playerCollider = other;
         }
     }
 
@@ -40,7 +49,7 @@ public class Item : MonoBehaviour
     {
         if (other == playerCollider)
         { 
-            playerCollider = null; // Сбрасываем коллайдер укрытия при выходе из него
+            playerCollider = null;
         }
     }
 

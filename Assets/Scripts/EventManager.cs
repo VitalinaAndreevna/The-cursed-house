@@ -43,6 +43,5 @@ public class EventManager : MonoBehaviour
                 monsters[i].SetActive(true);
             }
         }
-
     }
 }

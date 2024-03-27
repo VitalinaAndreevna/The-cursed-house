@@ -37,6 +37,7 @@ public class Replicas : MonoBehaviour
         {
             NextReplicas();
         }
+
         //Получение текущего времени
         timer = time.text;
         SplitTimer = timer.Split(':');

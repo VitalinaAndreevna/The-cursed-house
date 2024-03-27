@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
+
 
 public class PlayerScript : MonoBehaviour
 {
@@ -11,13 +15,17 @@ public class PlayerScript : MonoBehaviour
     private bool isInvincible;
     private float invincibleTimer;
 
+    public bool deathFlag = false;
+
     public int sanity = 100;
     private int maxSanity;
 
-    private Collider2D enemyCollider;  // Добавляем переменную для коллайдера укрытия
+    private Collider2D enemyCollider;
     private Collider2D doorCollider;
-    private Collider2D shelterCollider;  // Добавляем переменную для коллайдера укрытия
+    private Collider2D shelterCollider;
     private SpriteRenderer rend;
+
+    public Canvas alertsCanvas;
 
     public Image sanityBar;
 
@@ -29,7 +37,7 @@ public class PlayerScript : MonoBehaviour
     {
         maxSanity = sanity;
 
-        shelterCollider = null;  // Инициализируем переменную коллайдера
+        shelterCollider = null; 
         rend = gameObject.GetComponent<SpriteRenderer>();
 
         eventManager = FindObjectOfType<EventManager>();
@@ -38,7 +46,6 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        //иначе системное сообщение что нельзя
         Hide();
         Attack();
         Open();
@@ -46,10 +53,8 @@ public class PlayerScript : MonoBehaviour
         if (flagMove)
         { 
             float horizontal = Input.GetAxis("Horizontal");
-            //float vertical = Input.GetAxis("Vertical");
             Vector2 position = transform.position;
             position.x = position.x + speed * horizontal * Time.deltaTime;
-            //position.y = position.y + speed * vertical * Time.deltaTime;
             transform.position = position;
 
             animator.SetFloat("x", horizontal);
@@ -70,13 +75,21 @@ public class PlayerScript : MonoBehaviour
             if (invincibleTimer < 0)
                 isInvincible = false;
         }
+
+        if (deathFlag && Input.anyKeyDown)
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     public void takeDeath()
     {
         sanityBar.fillAmount = 0;
         Destroy(gameObject);
-        //системное сообщение о смерти, завершение игры, возвращение в меню
+        alertsCanvas.enabled = true;
+        alertsCanvas.gameObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "ВЫ УМЕРЛИ!";
+        //завершение игры(Обнуление результатов дня)
+        deathFlag = true;
     }
 
     public void takeHit(int damage)
@@ -91,7 +104,7 @@ public class PlayerScript : MonoBehaviour
         sanityBar.fillAmount = sanity / 100.0f;
 
         if (sanity <= 0)
-            Destroy(gameObject);
+            takeDeath();
     }
 
     public void takeShot(int damage)
@@ -103,7 +116,7 @@ public class PlayerScript : MonoBehaviour
         sanityBar.fillAmount = sanity / 100.0f;
 
         if (sanity <= 0)
-            Destroy(gameObject);
+            takeDeath();
     }
 
     public void setHealth(int medkit)
@@ -127,15 +140,15 @@ public class PlayerScript : MonoBehaviour
         }
         if (other.CompareTag("ShelterObj"))
         {
-            shelterCollider = other;  // Сохраняем коллайдер укрытия
+            shelterCollider = other;
         }
         if (other.CompareTag("Enemy"))
         {
-            enemyCollider = other;  // Сохраняем коллайдер врага
+            enemyCollider = other;
         }
         if (other.CompareTag("Door"))
         {
-            doorCollider = other;  // Сохраняем коллайдер двери
+            doorCollider = other;
         }
         if (other.CompareTag("Monster"))
         {
@@ -147,15 +160,15 @@ public class PlayerScript : MonoBehaviour
     {
         if (other == shelterCollider)
         {
-            shelterCollider = null;  // Сбрасываем коллайдер укрытия при выходе из него
+            shelterCollider = null;
         }
         if (other == enemyCollider)
         {
-            enemyCollider = null;  // Сбрасываем коллайдер врага
+            enemyCollider = null;
         }
         if (other == doorCollider)
         {
-            doorCollider = null;  // Сбрасываем коллайдер двери
+            doorCollider = null;
         }
         if (other.CompareTag("Monster"))
         {
@@ -175,6 +188,8 @@ public class PlayerScript : MonoBehaviour
                     Visability(0f);
                     flagMove = false;
                     //Вывод надписи вы "спрятаны" над шкафом
+                    alertsCanvas.enabled = true;
+                    alertsCanvas.gameObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "Вы спрятаны";
                 }
             }
             else
@@ -191,20 +206,21 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             //если дверь заперта и у персонажа есть ключ - дверь открыта 
-            if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen() 
+            if (doorCollider != null && doorCollider.gameObject.GetComponent<Door>().GetOpen())
+            {
+                transform.position = doorCollider.gameObject.GetComponent<Door>().GetDestination().position;
+            }
+            else if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen() 
                 && gameObject.GetComponent<Items>().getBools()[2]) // 2 == Key
             {
                 doorCollider.gameObject.GetComponent<Door>().SetOpen(true);
             }
-            //иначе надпись "Найдите ключ"
-            else if (doorCollider != null)
+            //дверь закрыта, вывод надписи "Найдите ключ"
+            else if (doorCollider != null && !doorCollider.gameObject.GetComponent<Door>().GetOpen()
+                && !gameObject.GetComponent<Items>().getBools()[2])
             {
-
-            }
-
-            if (doorCollider != null && doorCollider.gameObject.GetComponent<Door>().GetOpen())
-            {
-                transform.position = doorCollider.gameObject.GetComponent<Door>().GetDestination().position;
+                alertsCanvas.gameObject.SetActive(true);
+                alertsCanvas.gameObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "Найдите ключ";
             }
         }
     }
@@ -214,22 +230,34 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             //если враг в радиусе атаки и есть оружие - атака
-            if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[0]) // 0 == Amulet
+            if (enemyCollider != null)
             {
                 if(enemyCollider.gameObject.GetComponent<MovingMonster>() != null 
                     || enemyCollider.gameObject.GetComponent<EnemyShooting>() != null
-                    || enemyCollider.gameObject.GetComponent<DamageZone>() != null)
-                    //MovingMonster, EnemyShooting и DamageZone - первый ранг
-                    Destroy(enemyCollider.gameObject); 
-
-                //Иначе у вас нет оружия против него
-            }
-            else if (enemyCollider != null && gameObject.GetComponent<Items>().getBools()[1]) // 1 == Book
-            {
-                if (enemyCollider.gameObject.GetComponent<InstaKiller>() != null) //InstaKiller - первый ранг
-                    Destroy(enemyCollider.gameObject);
-
-                //Иначе у вас нет оружия против него
+                    || enemyCollider.gameObject.GetComponent<DamageZone>() != null) //MovingMonster, EnemyShooting и DamageZone - первый ранг 
+                { 
+                    if (gameObject.GetComponent<Items>().getBools()[0]) // 0 == Amulet
+                        Destroy(enemyCollider.gameObject);
+                    else
+                    {
+                        alertsCanvas.enabled = true;
+                        alertsCanvas.gameObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "У вас нет оружия";
+                        // Запускаем корутину, которая скрывает канвас после 2 секунд
+                        StartCoroutine(alertsCanvas.gameObject.GetComponent<Alerts>().HideCanvasAfterDelay(2.0f));
+                    }
+                }
+                else if (enemyCollider.gameObject.GetComponent<InstaKiller>() != null) //InstaKiller - второй ранг
+                {
+                    if (gameObject.GetComponent<Items>().getBools()[0] && gameObject.GetComponent<Items>().getBools()[1]) //1 == Grimuar
+                        Destroy(enemyCollider.gameObject);
+                    else
+                    {
+                        alertsCanvas.enabled = true;
+                        alertsCanvas.gameObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "У вас нет оружия";
+                        // Запускаем корутину, которая скрывает канвас после 2 секунд
+                        StartCoroutine(alertsCanvas.gameObject.GetComponent<Alerts>().HideCanvasAfterDelay(2.0f));
+                    }
+                }
             }
         }
     }

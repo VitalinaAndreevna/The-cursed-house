@@ -78,4 +78,9 @@ public class MenuManager : MonoBehaviour
         Screen.fullScreen = isFullscreen; //Включение или отключение полноэкранного режима
         Screen.SetResolution(Screen.resolutions[currResolutionIndex].width, Screen.resolutions[currResolutionIndex].height, isFullscreen); //Изменения разрешения
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
